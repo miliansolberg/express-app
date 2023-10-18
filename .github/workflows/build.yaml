@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    pull_request:
+      branches:
+        - main
 
 jobs:
   build:
@@ -20,6 +23,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
+      - run: npm test
       - run: node server.js &
       - run: sleep 10 # Give server some time to start
       - run: curl http://localhost:3000 # Test to ensure the server responds
